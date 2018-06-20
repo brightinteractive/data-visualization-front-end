@@ -9,14 +9,11 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
 
   title = 'Data Visualization';
-
-  readonly ROOT_URL = 'https://jsonplaceholder.typicode.com';
-  times: any;
-
+  readonly ROOT_URL = 'https://data-visualization-back-end.herokuapp.com';
+  time: any;
   constructor(private http: HttpClient){}
-
   getTime(){
-    this.times = this.http.get(this.ROOT_URL + '/posts')
+    this.time = this.http.get(this.ROOT_URL + '/time')
   }
 
 }

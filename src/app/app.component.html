@@ -4,6 +4,8 @@
 
 <button (click)="getTime()"> Get Server Time </button>
 
-<div *ngFor="let time of times | async">
-  {{time | json}}
-</div>
+{{time | json}}
+
+<!--<div *ngFor="let time of times | async">-->
+<!--{{time | json}}-->
+<!--</div>-->
