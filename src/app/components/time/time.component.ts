@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TimeService } from '../../services/time/time.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-time',
@@ -8,21 +9,14 @@ import { TimeService } from '../../services/time/time.service';
 })
 export class TimeComponent implements OnInit {
 
-  public currentTime;
+  currentTime$: Object;
 
-  constructor(private _timeService: TimeService) { }
+  constructor(private data: TimeService) { }
 
-  ngOnInit() {}
-
-  getTime(){
-    this._timeService.getTime()
-    .subscribe(data => {
-      this.currentTime = data;
-      // Hold the correct value.
-      console.log(this.currentTime);
-    });
-    //Value of time is undefined.
-    console.log(this.currentTime);
+  ngOnInit() {
+    this.data.getTime().subscribe(
+      data => this.currentTime$ = data
+    );
   }
-
+  
 }

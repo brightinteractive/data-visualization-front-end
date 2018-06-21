@@ -15,7 +15,7 @@ import { TimeService } from './services/time/time.service';
     BrowserModule,
     HttpClientModule
   ],
-  providers: [TimeService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
