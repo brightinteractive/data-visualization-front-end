@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TimeComponent } from './components/time/time.component';
-import { TimeService } from './services/time/time.service';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +14,7 @@ import { TimeService } from './services/time/time.service';
   imports: [
     BrowserModule,
     HttpClientModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
