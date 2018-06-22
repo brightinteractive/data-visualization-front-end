@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TimeService } from '../../services/time/time.service';
+import {ITime} from '../../time';
 
 @Component({
   selector: 'app-time',
@@ -8,7 +9,7 @@ import { TimeService } from '../../services/time/time.service';
 })
 export class TimeComponent implements OnInit {
 
-  currentTime$: Object;
+  currentTime$: ITime;
 
   constructor(private data: TimeService) { }
 
