@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { TimeComponent } from './time/time.component';
+import { TimeComponent } from './components/time/time.component';
+import { TimeService } from './services/time/time.service';
 
 @NgModule({
   declarations: [
@@ -10,7 +12,8 @@ import { TimeComponent } from './time/time.component';
     TimeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
