@@ -1,11 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
-
+import { HttpClientTestingModule} from '@angular/common/http/testing';
 import { TimeService } from './time.service';
 
 describe('TimeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TimeService]
+      providers: [TimeService],
+      imports: [HttpClientTestingModule]
     });
   });
 

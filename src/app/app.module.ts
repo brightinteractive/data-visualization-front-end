@@ -13,7 +13,7 @@ import { TimeService } from './services/time/time.service';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

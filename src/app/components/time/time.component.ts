@@ -18,5 +18,4 @@ export class TimeComponent implements OnInit {
       data => this.currentTime$ = data
     );
   }
-  
 }
