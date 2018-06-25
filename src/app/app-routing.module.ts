@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { TimeComponent } from './components/time/time.component';
 
 const routes: Routes = [
-  {path: '', component: TimeComponent}
+  {
+    path: '', component: TimeComponent
+  }
 ];
 
 @NgModule({

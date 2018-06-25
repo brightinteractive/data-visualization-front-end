@@ -11,11 +11,15 @@ export class TimeComponent implements OnInit {
 
   currentTime$: ITime;
 
-  constructor(private data: TimeService) { }
+  constructor(private timeService: TimeService) { }
 
   ngOnInit() {
-    this.data.getTime().subscribe(
+    this.timeService.getTime().subscribe(
       data => this.currentTime$ = data
     );
+  }
+
+  uploadEvent() {
+    this.timeService.postEvent();
   }
 }
