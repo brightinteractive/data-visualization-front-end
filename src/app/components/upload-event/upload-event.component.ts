@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadEventService } from '../../services/upload-event/upload-event.service';
-import { ITime } from '../../time';
+import { ITime } from '../../models/time';
 
 @Component({
   selector: 'app-upload-event',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ITime } from '../../time';
+import { ITime } from '../../models/time';
 
 @Injectable()
 export class TimeService {
