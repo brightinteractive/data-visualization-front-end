@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {AppSettings} from '../../models/app-settings';
 
 @Injectable()
 export class UploadEventService {
 
   constructor(private http: HttpClient) { }
 
-  private url: string = "https://data-visualization-back-end.herokuapp.com";
-
   getEvent() {
-    return this.http.get(this.url + '/upload-event');
+    return this.http.get(AppSettings.API_ENDPOINT + '/upload-event');
   }
 
 }
