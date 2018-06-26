@@ -9,12 +9,12 @@ import { ITime } from '../../time';
 })
 export class UploadEventComponent implements OnInit {
 
-  constructor(private _uploadEventService: UploadEventService) { }
+  constructor(private uploadEventService: UploadEventService) { }
 
   ngOnInit() { }
 
   uploadEvent() {
-    this._uploadEventService.getEvent().subscribe();
+    this.uploadEventService.getEvent().subscribe();
   }
 
 }

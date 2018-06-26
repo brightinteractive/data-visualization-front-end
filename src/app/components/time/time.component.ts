@@ -11,10 +11,10 @@ export class TimeComponent implements OnInit {
 
   currentTime$: ITime;
 
-  constructor(private _timeService: TimeService) { }
+  constructor(private timeService: TimeService) { }
 
   ngOnInit() {
-    this._timeService.getTime().subscribe(
+    this.timeService.getTime().subscribe(
       data => this.currentTime$ = data
     );
   }

@@ -7,10 +7,10 @@ export class TimeService {
 
   constructor(private http: HttpClient) { }
 
-  private _url: string = "https://data-visualization-back-end.herokuapp.com";
+  private url: string = "https://data-visualization-back-end.herokuapp.com";
 
   getTime() {
-    return this.http.get<ITime>(this._url);
+    return this.http.get<ITime>(this.url);
   }
 
 
