@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ITime } from '../../time';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TimeService {
 
   constructor(private http: HttpClient) { }
 
+  private _url: string = "https://data-visualization-back-end.herokuapp.com";
+
   getTime() {
-    return this.http.get<ITime>('https://data-visualization-back-end.herokuapp.com');
+    return this.http.get<ITime>(this._url);
   }
 
 

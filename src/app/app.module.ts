@@ -19,7 +19,6 @@ import { UploadEventService } from './services/upload-event/upload-event.service
   imports: [
     BrowserModule,
     HttpClientModule,
-    //AppRoutingModule,
   ],
   providers: [TimeService, UploadEventService],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TimeService } from '../../services/time/time.service';
-import {ITime} from '../../time';
+import { ITime } from '../../time';
 
 @Component({
   selector: 'app-time',
