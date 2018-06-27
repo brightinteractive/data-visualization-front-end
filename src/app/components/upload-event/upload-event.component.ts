@@ -9,7 +9,7 @@ import { Event } from '../../models/event';
 })
 export class UploadEventComponent implements OnInit {
 
-  eventModel = new Event('','','', 0, '');
+  eventModel = new Event('', '', '', 0, '');
 
   constructor(private uploadEventService: UploadEventService) { }
 
@@ -17,7 +17,6 @@ export class UploadEventComponent implements OnInit {
   }
 
   uploadEvent() {
-    console.log(this.eventModel);
     this.uploadEventService.postEvent(this.eventModel).subscribe();
   }
 
