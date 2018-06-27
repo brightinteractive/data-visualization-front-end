@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadEventService } from '../../services/upload-event/upload-event.service';
-import { ITime } from '../../models/time';
+import { Event } from '../../models/event';
 
 @Component({
   selector: 'app-upload-event',
@@ -9,12 +9,15 @@ import { ITime } from '../../models/time';
 })
 export class UploadEventComponent implements OnInit {
 
+  eventModel = new Event('', '', '', 0, '');
+
   constructor(private uploadEventService: UploadEventService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   uploadEvent() {
-    this.uploadEventService.getEvent().subscribe();
+    this.uploadEventService.postEvent(this.eventModel).subscribe();
   }
 
 }
