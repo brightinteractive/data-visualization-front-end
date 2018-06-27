@@ -18,7 +18,7 @@ export class UploadEventComponent implements OnInit {
 
   uploadEvent() {
     console.log(this.eventModel);
-    this.uploadEventService.getEvent().subscribe();
+    this.uploadEventService.postEvent(this.eventModel).subscribe();
   }
 
 }
