@@ -1,7 +1,15 @@
 export class Event {
-    userId: string;
-    userName: string;
-    group: string;
-    assetId: number;
-    assetTitle: string;
+    constructor(
+        public userId: string,
+        public userName: string,
+        public group: string,
+        public assetId: number,
+        public assetTitle: string
+    ) {}
+
+    // public userId: string;
+    // public userName: string;
+    // public group: string;
+    // public assetId: number;
+    // public assetTitle: string;
 }

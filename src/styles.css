@@ -1,5 +1,7 @@
 /* Application-wide Styles */
-h1 {
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+
+/* h1 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 4.5rem;
   line-height: 4.8rem;
@@ -15,10 +17,10 @@ body {
 body, input[text], button {
   font-family: Cambria, Georgia;
 }
-/* everywhere else */
-* {
+/* everywhere else 
+ {
   text-shadow: 0 0 50px #19838e, 0 2px 8px rgba(0,0,0,0.3);
   color: white;
   background-color: #2ab0be;
   font-family: Arial, Helvetica, sans-serif;
-}
+} */
