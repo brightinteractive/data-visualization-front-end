@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UploadEventService } from '../../services/upload-event/upload-event.service';
 import { Event } from '../../models/event';
 
@@ -9,15 +9,20 @@ import { Event } from '../../models/event';
 })
 export class UploadEventComponent implements OnInit {
 
-  eventModel = new Event('', '', '', 0, '');
+  eventModel = new Event();
+
+  @ViewChild("eventForm") eventForm;
+  @ViewChild("userIdField") userIdInput : ElementRef;
 
   constructor(private uploadEventService: UploadEventService) { }
 
   ngOnInit() {
   }
 
-  uploadEvent() {
+  onSubmit() {
     this.uploadEventService.postEvent(this.eventModel).subscribe();
+    this.eventForm.reset();
+    this.userIdInput.nativeElement.focus();
   }
 
 }

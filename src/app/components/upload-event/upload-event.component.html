@@ -1,9 +1,9 @@
 <div class="container">
   <h2>Upload an Event</h2>
-  <form (ngSubmit)="uploadEvent()" #eventForm="ngForm">
+  <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
     <div class="form-group">
       <label for="userId">User ID</label>
-      <input type="text" class="form-control" id="userId" required name="userId" [(ngModel)]="eventModel.userId" #userId="ngModel">
+      <input #userIdField type="text" class="form-control" id="userId" required name="userId" [(ngModel)]="eventModel.userId" #userId="ngModel">
       <div [hidden]="userId.valid || userId.pristine" class="alert alert-danger">
         User ID is required
       </div>
