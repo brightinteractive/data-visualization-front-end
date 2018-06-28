@@ -18,6 +18,7 @@ export class UploadEventComponent implements OnInit {
 
   uploadEvent() {
     this.uploadEventService.postEvent(this.eventModel).subscribe();
+    document.getElementById("userId").focus();
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Upload an Event</h2>
-  <form (ngSubmit)="uploadEvent()" #eventForm="ngForm">
+  <form (ngSubmit)="uploadEvent();eventForm.reset()" #eventForm="ngForm">
     <div class="form-group">
       <label for="userId">User ID</label>
       <input type="text" class="form-control" id="userId" required name="userId" [(ngModel)]="eventModel.userId" #userId="ngModel">
