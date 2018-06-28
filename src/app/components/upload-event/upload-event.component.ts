@@ -9,7 +9,7 @@ import { Event } from '../../models/event';
 })
 export class UploadEventComponent implements OnInit {
 
-  eventModel = new Event('', '', '', 0, '');
+  eventModel = new Event('', '', '', null, '');
 
   @ViewChild("eventForm") eventForm;
   @ViewChild("userIdField") userIdInput : ElementRef;
@@ -23,6 +23,7 @@ export class UploadEventComponent implements OnInit {
     this.uploadEventService.postEvent(this.eventModel).subscribe();
     this.eventForm.reset();
     this.userIdInput.nativeElement.focus();
+    console.log(this.eventModel);
   }
 
 }
