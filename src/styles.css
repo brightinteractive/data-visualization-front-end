@@ -1,26 +1,5 @@
 /* Application-wide Styles */
 @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-/* h1 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 4.5rem;
-  line-height: 4.8rem;
-  font-size: 250%;
-}
-h2, h3 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
-}
-body {
-  margin: 2em;
-}
-body, input[text], button {
-  font-family: Cambria, Georgia;
-}
-/* everywhere else 
- {
-  text-shadow: 0 0 50px #19838e, 0 2px 8px rgba(0,0,0,0.3);
-  color: white;
-  background-color: #2ab0be;
-  font-family: Arial, Helvetica, sans-serif;
-} */
+body { margin: 0; }

@@ -9,6 +9,11 @@ import { TimeService } from './services/time/time.service';
 import { UploadEventComponent } from './components/upload-event/upload-event.component';
 import { UploadEventService } from './services/upload-event/upload-event.service';
 import { FormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule} from '@angular/forms';
+
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -20,7 +25,11 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [TimeService, UploadEventService],
   bootstrap: [AppComponent]
