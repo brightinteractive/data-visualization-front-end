@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UploadEventService } from '../../services/upload-event/upload-event.service';
 import { Event } from '../../models/event';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { customValidators } from '../../services/validators/customValidators';
 
 @Component({
@@ -14,7 +14,7 @@ export class UploadEventComponent implements OnInit {
   eventToUpload: Event;
   eventForm: FormGroup;
   noOfUploads: number = 10;
-  
+
 
   @ViewChild('userIdInput') userIdInput: ElementRef;
 
@@ -35,16 +35,16 @@ export class UploadEventComponent implements OnInit {
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]]
     }, {
-      validator: Validators.compose([
-        customValidators.dateLessThan('startDate', 'endDate', { 'loaddate': true })
-      ])
+        validator: Validators.compose([
+          customValidators.dateLessThan('startDate', 'endDate', { 'loaddate': true })
+        ])
       })
   };
 
   onSubmit() {
     let startDate = new Date(this.eventForm.get('startDate').value);
     let endDate = new Date(this.eventForm.get('endDate').value);
-    let differenceInDays = this.calculateDifferenceInDays(startDate, endDate);
+    let differenceInDays = this.calculateDifferenceInDays(startDate, endDate) + 1;
     console.log("Number of event uploads: " + this.noOfUploads * differenceInDays);
     for (let i = 0; i < differenceInDays; i++) {
       for (let j = 0; j < this.noOfUploads; j++) {
@@ -60,7 +60,7 @@ export class UploadEventComponent implements OnInit {
   calculateDifferenceInDays(d1: Date, d2: Date): number {
     let timeDiff = Math.abs(d2.getTime() - d1.getTime());
     let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return diffDays + 1;
+    return diffDays;
   }
 
   createUploadEvent(eventData, eventDate): Event {
@@ -75,7 +75,7 @@ export class UploadEventComponent implements OnInit {
     return event;
   }
 
-  calculateRandomEventTime(startDate: Date, elapsedDays): Date {
+  calculateRandomEventTime(startDate: Date, elapsedDays: number): Date {
     let returnDate = new Date(startDate);
     returnDate.setDate(returnDate.getDate() + elapsedDays);
     returnDate.setHours(Math.random() * 24);
