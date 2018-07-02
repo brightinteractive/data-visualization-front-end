@@ -2,78 +2,74 @@
     <h2>Upload an Event</h2>
 
     <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label class="center-block">User ID:
-            <input class="form-control" formControlName="userId" required>
-        </label>
-      </div>
-      <div [hidden]="eventForm.get('userId').valid || eventForm.get('userId').pristine" class="alert alert-danger">
-          User ID is required
-      </div>
+        <div class="form-group">
+            <label class="center-block">User ID:
+                <input class="form-control" formControlName="userId" required #userIdInput>
+            </label>
+        </div>
+        <div>
+            <p *ngIf="!(eventForm.get('userId').valid || eventForm.get('userId').pristine)" class="alert alert-danger">User ID is required</p>
+        </div>
 
-      <div class="form-group">
-        <label class="center-block">User Name:
-            <input class="form-control" formControlName="userName" required>
-        </label>
-      </div>
-      <div [hidden]="eventForm.get('userName').valid || eventForm.get('userName').pristine" class="alert alert-danger">
-          User Name is required
-      </div>
+        <div class="form-group">
+            <label class="center-block">User Name:
+                <input class="form-control" formControlName="userName" required>
+            </label>
+        </div>
+        <div>
+            <p *ngIf="!(eventForm.get('userName').valid || eventForm.get('userName').pristine)" class="alert alert-danger">User Name is required</p>
+        </div>
 
-      <div class="form-group">
-        <label class="center-block">Group:
-            <input class="form-control" formControlName="group" required>
-        </label>
-      </div>
-      <div [hidden]="eventForm.get('group').valid || eventForm.get('group').pristine" class="alert alert-danger">
-          Group is required
-      </div>
+        <div class="form-group">
+            <label class="center-block">Group:
+                <input class="form-control" formControlName="group" required>
+            </label>
+        </div>
+        <div>
+            <p *ngIf="!(eventForm.get('group').valid || eventForm.get('group').pristine)" class="alert alert-danger">Group is required</p>
+        </div>
 
-      <div class="form-group">
-        <label class="center-block">Asset ID:
-            <input class="form-control" formControlName="assetId" type="number" required min=0>
-        </label>
-      </div>
-      <div [hidden]="eventForm.get('assetId').valid || eventForm.get('assetId').pristine" class="alert alert-danger">
-          Asset ID is required
-      </div>
+        <div class="form-group">
+            <label class="center-block">Asset ID:
+                <input class="form-control" formControlName="assetId" type="number" required min=0>
+            </label>
+        </div>
+        <div>
+            <p *ngIf="!(eventForm.get('assetId').valid || eventForm.get('assetId').pristine)" class="alert alert-danger">Asset Id is required</p>
+        </div>
 
-      <div class="form-group">
-        <label class="center-block">Asset Title:
-            <input class="form-control" formControlName="assetTitle" required>
-        </label>
-      </div>
-      <div [hidden]="eventForm.get('assetTitle').valid || eventForm.get('assetTitle').pristine" class="alert alert-danger">
-          Asset Title is required
-      </div>
+        <div class="form-group">
+            <label class="center-block">Asset Title:
+                <input class="form-control" formControlName="assetTitle" required>
+            </label>
+        </div>
+        <div>
+            <p *ngIf="!(eventForm.get('assetTitle').valid || eventForm.get('assetTitle').pristine)" class="alert alert-danger">Asset Title is required</p>
+        </div>
 
-      <div class="form-group">
-        <label class="center-block">Start Date:
-            <input class="form-control" formControlName="startDate" type="date" required>
-        </label>
-      </div>
-      <div [hidden]="eventForm.get('startDate').valid || eventForm.get('startDate').pristine" class="alert alert-danger">
-          Not a valid date
-      </div>
+        <div class="form-group">
+            <label class="center-block">Start Date:
+                <input class="form-control" formControlName="startDate" type="date" required>
+            </label>
+        </div>
+        <div>
+            <p *ngIf="!(eventForm.get('startDate').valid || eventForm.get('startDate').pristine)" class="alert alert-danger">Must be a valid date</p>
+        </div>
 
-      <div class="form-group">
-          <label class="center-block">End Date:
-              <input class="form-control" formControlName="endDate" type="date" required>
-          </label>
-      </div>
-      <div [hidden]="eventForm.get('endDate').valid || eventForm.get('endDate').pristine ||eventForm.hasError('validDate')" class="alert alert-danger">
-          Not a valid date
-      </div>
+        <div class="form-group">
+            <label class="center-block">End Date:
+                <input class="form-control" formControlName="endDate" type="date" required>
+            </label>
+        </div>
+        <div>
+            <p *ngIf="!(eventForm.get('endDate').valid || eventForm.get('endDate').pristine)" class="alert alert-danger">Must be a valid date</p>
+            <p *ngIf="eventForm.hasError('loaddate')" class="alert alert-danger"> End date must be before start date</p>
+        </div>
 
-      <button type="submit" class="btn btn-success" [disabled]="!eventForm.valid">
-          Generate
-      </button>   
-      
+        <button type="submit" class="btn btn-success" [disabled]="!eventForm.valid">
+            Generate
+        </button>
+
     </form>
 
-    <p>Form value: {{ eventForm.value | json }}</p>
-    <p>Form status: {{ eventForm.status | json }}</p>
-    <p>EndDate status: {{ eventForm.get('endDate').valid | json }}</p>
-    <p>EndDate status: {{ eventForm.get('endDate').validDate | json }}</p>
-  
-  </div>
+</div>
