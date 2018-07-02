@@ -5,6 +5,8 @@ import {AppSettings} from '../../models/app-settings';
 @Injectable()
 export class UploadEventService {
 
+  eventToUpload : Event;
+
   constructor(private http: HttpClient) { }
 
   postEvent(event) {

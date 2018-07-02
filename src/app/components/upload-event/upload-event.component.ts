@@ -13,6 +13,7 @@ export class UploadEventComponent implements OnInit {
 
   eventForm: FormGroup;
   noOfUploads: number = 10;
+  eventToUpload: Event;
 
   //@ViewChild("eventForm") eventForm;
   @ViewChild("userId") userIdInput : ElementRef;
@@ -45,8 +46,9 @@ export class UploadEventComponent implements OnInit {
     console.log("Number of POST Requests: " + this.noOfUploads * differenceInDays);
     for( let i=0; i < differenceInDays; i++){
       for( let j=0; j < this.noOfUploads; j++){
-        //GenerateRandomTimeForEvent()
-        this.uploadEventService.postEvent(this.eventForm.value).subscribe();
+        let eventDate = this.calculateRandomEventTime(this.eventForm.get('startDate').value, i);
+        this.eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
+        this.uploadEventService.postEvent(this.eventToUpload).subscribe();
       }
     }
     this.eventForm.reset();
@@ -59,13 +61,25 @@ export class UploadEventComponent implements OnInit {
     return diffDays + 1;
   }
 
-  EndDateAfterStartDate(control: FormGroup){
-    const invalid = control.get('startDate').value > control.get('endDate').value;
-    return invalid ? { 'invalidDate': true } : null;
-  };
+  createUploadEvent(eventData, eventDate) : Event {
+    var event = new Event();
+    event.eventType = "Upload";
+    event.userId = eventData.userId;
+    event.userName = eventData.userName;
+    event.group = eventData.group;
+    event.assetId = eventData.assetId;
+    event.assetTitle = eventData.assetTitle;
+    event.date = eventDate;
+    return event;
+  }
 
-  
-
+  calculateRandomEventTime(startDate: Date, elapsedDays): Date{
+    let returnDate = new Date(startDate);
+    returnDate.setDate(returnDate.getDate() + elapsedDays);
+    returnDate.setHours(Math.random() * 24);
+    returnDate.setMinutes(Math.random() * 60);
+    return returnDate; 
+  }
 }
 
 
