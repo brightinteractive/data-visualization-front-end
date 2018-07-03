@@ -45,13 +45,15 @@ export class UploadEventComponent implements OnInit {
     const startDate = new Date(this.eventForm.get('startDate').value);
     const endDate = new Date(this.eventForm.get('endDate').value);
     const differenceInDays = this.calculateDifferenceInDays(startDate, endDate) + 1;
-    for (let i = 0; i < differenceInDays; i++) {
-      for (let j = 0; j < this.noOfUploads; j++) {
-        const eventDate = this.calculateRandomEventTime(this.eventForm.get('startDate').value, i);
+
+    for (let days = 0; days < differenceInDays; days++) {
+      for (let events = 0; events < this.noOfUploads; events++) {
+        const eventDate = this.calculateRandomEventTime(startDate, days);
         this.eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
         this.uploadEventService.postEvent(this.eventToUpload);
       }
     }
+
     this.eventForm.reset();
     this.userIdInput.nativeElement.focus();
   }
@@ -84,5 +86,7 @@ export class UploadEventComponent implements OnInit {
 
 
 }
+
+
 
 

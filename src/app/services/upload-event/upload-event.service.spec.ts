@@ -15,7 +15,7 @@ describe('UploadEventService', () => {
       imports: [HttpClientModule, HttpClientTestingModule],
       providers: [UploadEventService]
     });
-    service = TestBed.get(UploadEventService)
+    service = TestBed.get(UploadEventService);
     httpTestingController = TestBed.get(HttpTestingController);
     this.mockEvent = mockData;
   });
@@ -23,23 +23,12 @@ describe('UploadEventService', () => {
   afterEach(() => {
     // After every test, assert that there are no more pending requests.
     httpTestingController.verify();
-  })
+  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('postEvent', () => {
-    it('should post an event', () => {
-      service.postEvent(this.event).subscribe(
-        response => expect(response).toBeDefined(),
-        fail
-      );
-      const req = httpTestingController.expectOne(service);
-      expect(req.request.method).toEqual('POST');
-    })
-
-  });
 
 });
 

@@ -3,7 +3,7 @@ import { MockUploadEventService } from '../../services/upload-event/upload-event
 import { UploadEventService } from '../../services/upload-event/upload-event.service';
 import { UploadEventComponent } from './upload-event.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('UploadEventComponent', () => {
   let comp: UploadEventComponent;
@@ -27,8 +27,7 @@ describe('UploadEventComponent', () => {
       providers: [
         { provide: UploadEventService, useClass: MockUploadEventService }
       ]
-    })
-      .compileComponents;
+    });
   }));
 
   beforeEach(() => {
@@ -45,9 +44,8 @@ describe('UploadEventComponent', () => {
   describe('createUploadEvent', () => {
     it('should create and return a new Event, given some data', () => {
       const testDate = new Date();
-      const eventData = mockData;
-      const event = comp.createUploadEvent(eventData, testDate);
-      expect(event).toBeTruthy;
+      const event = comp.createUploadEvent(mockData, testDate);
+      expect(event).toBeTruthy();
     });
   });
 
