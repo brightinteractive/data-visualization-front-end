@@ -63,7 +63,7 @@
         </div>
         <div>
             <p *ngIf="!(eventForm.get('endDate').valid || eventForm.get('endDate').pristine)" class="alert alert-danger">Must be a valid date</p>
-            <p *ngIf="eventForm.hasError('loaddate')" class="alert alert-danger"> End date must be before start date</p>
+            <p *ngIf="eventForm.hasError('endDateIsBeforeStartDate')" class="alert alert-danger"> End date must be before start date</p>
         </div>
 
         <button type="submit" class="btn btn-success" [disabled]="!eventForm.valid">

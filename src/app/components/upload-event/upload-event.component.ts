@@ -36,7 +36,7 @@ export class UploadEventComponent implements OnInit {
       endDate: ['', [Validators.required]]
     }, {
         validator: Validators.compose([
-          CustomValidators.dateLessThan('startDate', 'endDate', { 'loaddate': true })
+          CustomValidators.dateLessThan('startDate', 'endDate', { 'endDateIsBeforeStartDate': true })
         ])
       });
   }
@@ -45,12 +45,11 @@ export class UploadEventComponent implements OnInit {
     const startDate = new Date(this.eventForm.get('startDate').value);
     const endDate = new Date(this.eventForm.get('endDate').value);
     const differenceInDays = this.calculateDifferenceInDays(startDate, endDate) + 1;
-    console.log('Number of event uploads: ' + this.noOfUploads * differenceInDays);
     for (let i = 0; i < differenceInDays; i++) {
       for (let j = 0; j < this.noOfUploads; j++) {
         const eventDate = this.calculateRandomEventTime(this.eventForm.get('startDate').value, i);
         this.eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
-        this.uploadEventService.postEvent(this.eventToUpload).subscribe();
+        this.uploadEventService.postEvent(this.eventToUpload);
       }
     }
     this.eventForm.reset();
@@ -82,4 +81,8 @@ export class UploadEventComponent implements OnInit {
     returnDate.setMinutes(Math.random() * 60);
     return returnDate;
   }
+
+
 }
+
+

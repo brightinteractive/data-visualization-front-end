@@ -10,7 +10,7 @@ export class UploadEventService {
   constructor(private http: HttpClient) { }
 
   postEvent(event) {
-    return this.http.post<Event>(AppSettings.API_ENDPOINT + '/upload-event', event);
+    this.http.post<Event>(AppSettings.API_ENDPOINT + '/upload-event', event);
   }
 
 }
