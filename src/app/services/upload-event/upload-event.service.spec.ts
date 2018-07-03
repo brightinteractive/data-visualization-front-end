@@ -30,7 +30,7 @@ describe('UploadEventService', () => {
   afterEach(() => {
     // After every test, assert that there are no more pending requests.
     httpTestingController.verify();
-  })
+  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -44,8 +44,8 @@ describe('UploadEventService', () => {
       );
       const req = httpTestingController.expectOne(service);
       expect(req.request.method).toEqual('POST');
-    })
-    
+    });
+
   });
 
 });

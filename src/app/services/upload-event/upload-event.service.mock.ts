@@ -5,7 +5,7 @@ import {AppSettings} from '../../models/app-settings';
 @Injectable()
 export class MockUploadEventService {
 
-  eventToUpload : Event;
+  eventToUpload: Event;
 
   constructor(private http: HttpClient) { }
 
