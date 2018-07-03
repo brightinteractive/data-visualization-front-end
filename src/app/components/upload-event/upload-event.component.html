@@ -4,11 +4,11 @@
     <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label class="center-block">User ID:
-                <input class="form-control" formControlName="userId" required #userIdInput>
+                <input class="form-control" formControlName="userId" required #userIdInput id="USER_ID">
             </label>
         </div>
         <div>
-            <p *ngIf="!(eventForm.get('userId').valid || eventForm.get('userId').pristine)" class="alert alert-danger">User ID is required</p>
+            <p *ngIf="shouldShowFieldValidationMessage('userId')" class="alert alert-danger" >User ID is required</p>
         </div>
 
         <div class="form-group">
@@ -17,7 +17,7 @@
             </label>
         </div>
         <div>
-            <p *ngIf="!(eventForm.get('userName').valid || eventForm.get('userName').pristine)" class="alert alert-danger">User Name is required</p>
+            <p *ngIf="shouldShowFieldValidationMessage('userName')" class="alert alert-danger">User Name is required</p>
         </div>
 
         <div class="form-group">
@@ -26,7 +26,7 @@
             </label>
         </div>
         <div>
-            <p *ngIf="!(eventForm.get('group').valid || eventForm.get('group').pristine)" class="alert alert-danger">Group is required</p>
+            <p *ngIf="shouldShowFieldValidationMessage('group')" class="alert alert-danger">Group is required</p>
         </div>
 
         <div class="form-group">
@@ -35,7 +35,7 @@
             </label>
         </div>
         <div>
-            <p *ngIf="!(eventForm.get('assetId').valid || eventForm.get('assetId').pristine)" class="alert alert-danger">Asset Id is required</p>
+            <p *ngIf="shouldShowFieldValidationMessage('assetId')" class="alert alert-danger">Asset Id is required</p>
         </div>
 
         <div class="form-group">
@@ -44,25 +44,25 @@
             </label>
         </div>
         <div>
-            <p *ngIf="!(eventForm.get('assetTitle').valid || eventForm.get('assetTitle').pristine)" class="alert alert-danger">Asset Title is required</p>
+            <p *ngIf="shouldShowFieldValidationMessage('assetTitle')" class="alert alert-danger">Asset Title is required</p>
         </div>
 
         <div class="form-group">
             <label class="center-block">Start Date:
-                <input class="form-control" formControlName="startDate" type="date" required>
+                <input class="form-control" formControlName="startDate" type="date" required id="START_DATE">
             </label>
         </div>
         <div>
-            <p *ngIf="!(eventForm.get('startDate').valid || eventForm.get('startDate').pristine)" class="alert alert-danger">Must be a valid date</p>
+            <p *ngIf="shouldShowFieldValidationMessage('startDate')" class="alert alert-danger">Must be a valid date</p>
         </div>
 
         <div class="form-group">
             <label class="center-block">End Date:
-                <input class="form-control" formControlName="endDate" type="date" required>
+                <input class="form-control" formControlName="endDate" type="date" required id="END_DATE">
             </label>
         </div>
         <div>
-            <p *ngIf="!(eventForm.get('endDate').valid || eventForm.get('endDate').pristine)" class="alert alert-danger">Must be a valid date</p>
+            <p *ngIf="shouldShowFieldValidationMessage('endDate')" class="alert alert-danger">Must be a valid date</p>
             <p *ngIf="eventForm.hasError('endDateIsBeforeStartDate')" class="alert alert-danger"> End date must be before start date</p>
         </div>
 

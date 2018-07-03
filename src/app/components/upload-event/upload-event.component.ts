@@ -11,7 +11,6 @@ import { CustomValidators } from '../../services/validators/customValidators';
 })
 export class UploadEventComponent implements OnInit {
 
-  eventToUpload: Event;
   eventForm: FormGroup;
   noOfUploads = 10;
 
@@ -49,8 +48,8 @@ export class UploadEventComponent implements OnInit {
     for (let days = 0; days < differenceInDays; days++) {
       for (let events = 0; events < this.noOfUploads; events++) {
         const eventDate = this.calculateRandomEventTime(startDate, days);
-        this.eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
-        this.uploadEventService.postEvent(this.eventToUpload);
+        let eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
+        this.uploadEventService.postEvent(eventToUpload);
       }
     }
 
@@ -60,8 +59,7 @@ export class UploadEventComponent implements OnInit {
 
   calculateDifferenceInDays(d1: Date, d2: Date): number {
     const timeDiff = Math.abs(d2.getTime() - d1.getTime());
-    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return diffDays;
+    return Math.ceil(timeDiff / (1000 * 3600 * 24));
   }
 
   createUploadEvent(eventData, eventDate): Event {
@@ -82,6 +80,10 @@ export class UploadEventComponent implements OnInit {
     returnDate.setHours(Math.random() * 24);
     returnDate.setMinutes(Math.random() * 60);
     return returnDate;
+  }
+
+  shouldShowFieldValidationMessage(fieldname: string): boolean {
+    return !(this.eventForm.get(fieldname).valid || !this.eventForm.get(fieldname).dirty);
   }
 
 

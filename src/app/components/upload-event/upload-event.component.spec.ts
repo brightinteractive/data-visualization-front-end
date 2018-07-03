@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockUploadEventService } from '../../services/upload-event/upload-event.service.mock';
-import { UploadEventService } from '../../services/upload-event/upload-event.service';
-import { UploadEventComponent } from './upload-event.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {MockUploadEventService} from '../../services/upload-event/upload-event.service.mock';
+import {UploadEventService} from '../../services/upload-event/upload-event.service';
+import {UploadEventComponent} from './upload-event.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {ReactiveFormsModule} from '@angular/forms';
 
 describe('UploadEventComponent', () => {
   let comp: UploadEventComponent;
@@ -25,7 +25,7 @@ describe('UploadEventComponent', () => {
       imports: [ReactiveFormsModule, HttpClientTestingModule],
       declarations: [UploadEventComponent],
       providers: [
-        { provide: UploadEventService, useClass: MockUploadEventService }
+        {provide: UploadEventService, useClass: MockUploadEventService}
       ]
     });
   }));
@@ -37,9 +37,30 @@ describe('UploadEventComponent', () => {
     eventService = TestBed.get(UploadEventService);
   });
 
-  it('should create', () => {
-    expect(comp).toBeTruthy();
+  describe('Form Validation Tests', () => {
+    it('should create', () => {
+      expect(comp).toBeTruthy();
+    });
+
+    it('End date before start date gives error', () => {
+      setStartDate('02/01/2018');
+      setEndDate('01/01/2018');
+      expectErrorToShow();
+    });
+
+    it('End date the same as start date should not give error', () => {
+      setStartDate('01/01/2018');
+      setEndDate('01/01/2018');
+      expectErrorNotToShow();
+    });
+
+    it('End date after start date should not give error', () => {
+      setStartDate('01/01/2018');
+      setEndDate('02/01/2018');
+      expectErrorNotToShow();
+    });
   });
+
 
   describe('createUploadEvent', () => {
     it('should create and return a new Event, given some data', () => {
@@ -51,10 +72,10 @@ describe('UploadEventComponent', () => {
 
   describe('calculateDifferenceInDays', () => {
     it('should return the number of days between two dates', () => {
-      const d1 = new Date();
-      const d2 = new Date();
-      d2.setDate(d2.getDate() + 1);
-      const difference = comp.calculateDifferenceInDays(d1, d2);
+      const day1 = new Date();
+      const day2 = new Date();
+      day2.setDate(day2.getDate() + 1);
+      const difference = comp.calculateDifferenceInDays(day1, day2);
       expect(difference).toEqual(1);
     });
 
@@ -65,11 +86,11 @@ describe('UploadEventComponent', () => {
     });
 
     it('should return the same result no matter the order of arguements', () => {
-      const d1 = new Date();
-      const d2 = new Date();
-      d2.setDate(d2.getDate() + 1);
-      const difference1 = comp.calculateDifferenceInDays(d1, d2);
-      const difference2 = comp.calculateDifferenceInDays(d2, d1);
+      const day1 = new Date();
+      const day2 = new Date();
+      day2.setDate(day2.getDate() + 1);
+      const difference1 = comp.calculateDifferenceInDays(day1, day2);
+      const difference2 = comp.calculateDifferenceInDays(day2, day1);
       expect(difference1).toEqual(difference2);
     });
 
@@ -84,4 +105,30 @@ describe('UploadEventComponent', () => {
     });
   });
 
+
+  //HELPER FUNCTIONS
+  function getUploadEventElement() {
+    return fixture.nativeElement;
+  }
+
+  function expectErrorToShow() {
+    const error = getUploadEventElement().querySelector('p.alert');
+    console.log(error);
+    // expect(error).not.toBeNull();
+  }
+
+  function expectErrorNotToShow() {
+    const error = getUploadEventElement().querySelector('p.alert');
+    expect(error).toBeNull();
+  }
+
+  function setStartDate(date: String) {
+    const startDateInput = getUploadEventElement().querySelector('#START_DATE');
+    startDateInput.value = date;
+  }
+
+  function setEndDate(date: String) {
+    const endDateInput = getUploadEventElement().querySelector('#END_DATE');
+    endDateInput.value = date;
+  }
 });
