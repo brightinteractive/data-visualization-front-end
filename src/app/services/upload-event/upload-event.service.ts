@@ -11,7 +11,7 @@ export class UploadEventService {
 
   postEvent(event) {
     console.log("3");
-    this.http.post<Event>(AppSettings.API_ENDPOINT + '/upload-event', event);
+    return this.http.post<Event>(AppSettings.API_ENDPOINT + '/upload-event', event);
   }
 
 }
