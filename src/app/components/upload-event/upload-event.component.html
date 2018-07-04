@@ -13,7 +13,7 @@
 
         <div class="form-group">
             <label class="center-block">User Name:
-                <input class="form-control" formControlName="userName" required>
+                <input class="form-control" formControlName="userName" required id="USER_NAME">
             </label>
         </div>
         <div>
@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <label class="center-block">Group:
-                <input class="form-control" formControlName="group" required>
+                <input class="form-control" formControlName="group" required id="GROUP">
             </label>
         </div>
         <div>
@@ -31,7 +31,7 @@
 
         <div class="form-group">
             <label class="center-block">Asset ID:
-                <input class="form-control" formControlName="assetId" type="number" required min=0>
+                <input class="form-control" formControlName="assetId" type="number" required min=0 id="ASSET_ID">
             </label>
         </div>
         <div>
@@ -40,7 +40,7 @@
 
         <div class="form-group">
             <label class="center-block">Asset Title:
-                <input class="form-control" formControlName="assetTitle" required>
+                <input class="form-control" formControlName="assetTitle" required id="ASSET_TITLE">
             </label>
         </div>
         <div>
@@ -66,7 +66,27 @@
             <p *ngIf="eventForm.hasError('endDateIsBeforeStartDate')" class="alert alert-danger"> End date must be before start date</p>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="!eventForm.valid">
+        <div class="form-group">
+            <label class="center-block">Min number per day:
+                <input class="form-control" formControlName="minEvents" type="number" required min=0 max=200 id="MIN_EVENTS_PER_DAY">
+            </label>
+        </div>
+        <div>
+            <p *ngIf="shouldShowFieldValidationMessage('minEvents')" class="alert alert-danger">Invalid number of Events</p>
+        </div>
+
+        <div class="form-group">
+            <label class="center-block">Max number per day:
+                <input class="form-control" formControlName="maxEvents" type="number" required min=0 max=200 id="MAX_EVENTS_PER_DAY">
+            </label>
+        </div>
+        <div>
+            <p *ngIf="shouldShowFieldValidationMessage('maxEvents')" class="alert alert-danger">Invalid number of Events</p>
+            <p *ngIf="eventForm.hasError('invalidValue') && !eventForm.get('maxEvents').pristine" class="alert alert-danger"> Max field must be greater than the Min field</p>
+
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="!eventForm.valid" id="GENERATE_BUTTON">
             Generate
         </button>
 

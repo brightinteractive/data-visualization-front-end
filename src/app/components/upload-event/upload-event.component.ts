@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { UploadEventService } from '../../services/upload-event/upload-event.service';
-import { Event } from '../../models/event';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from '../../services/validators/customValidators';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {UploadEventService} from '../../services/upload-event/upload-event.service';
+import {Event} from '../../models/event';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CustomValidators} from '../../services/validators/customValidators';
 
 @Component({
   selector: 'app-upload-event',
@@ -12,7 +12,7 @@ import { CustomValidators } from '../../services/validators/customValidators';
 export class UploadEventComponent implements OnInit {
 
   eventForm: FormGroup;
-  noOfUploads = 10;
+  noOfUploadsRange: number;
 
 
   @ViewChild('userIdInput') userIdInput: ElementRef;
@@ -32,12 +32,15 @@ export class UploadEventComponent implements OnInit {
       assetId: ['', [Validators.required, Validators.min(0)]],
       assetTitle: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]]
+      endDate: ['', [Validators.required]],
+      minEvents: ['', [Validators.required, Validators.min(0), Validators.max(200)]],
+      maxEvents: ['', [Validators.required, Validators.min(0), Validators.max(200)]]
     }, {
-        validator: Validators.compose([
-          CustomValidators.dateLessThan('startDate', 'endDate', { 'endDateIsBeforeStartDate': true })
-        ])
-      });
+      validator: Validators.compose([
+        CustomValidators.dateLessThan('startDate', 'endDate', {'endDateIsBeforeStartDate': true}),
+        CustomValidators.numberLessThan('minEvents', 'maxEvents', {'invalidValue': true})
+      ])
+    });
   }
 
   onSubmit() {
@@ -45,14 +48,20 @@ export class UploadEventComponent implements OnInit {
     const endDate = new Date(this.eventForm.get('endDate').value);
     const differenceInDays = this.calculateDifferenceInDays(startDate, endDate) + 1;
 
+    console.log('outer')
+
     for (let days = 0; days < differenceInDays; days++) {
-      for (let events = 0; events < this.noOfUploads; events++) {
+
+      let noOfEvents = this.randomEventRange(this.eventForm.get('minEvents').value, this.eventForm.get('maxEvents').value);
+
+      for (let events = 0; events < noOfEvents; events++) {
         const eventDate = this.calculateRandomEventTime(startDate, days);
         const eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
+
         this.uploadEventService.postEvent(eventToUpload).subscribe();
       }
-    }
 
+    }
     this.eventForm.reset();
     this.userIdInput.nativeElement.focus();
   }
@@ -60,6 +69,10 @@ export class UploadEventComponent implements OnInit {
   calculateDifferenceInDays(d1: Date, d2: Date): number {
     const timeDiff = Math.abs(d2.getTime() - d1.getTime());
     return Math.ceil(timeDiff / (1000 * 3600 * 24));
+  }
+
+  randomEventRange(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
   createUploadEvent(eventData, eventDate): Event {

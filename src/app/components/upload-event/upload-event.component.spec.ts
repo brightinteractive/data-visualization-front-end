@@ -1,14 +1,15 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 import {MockUploadEventService} from '../../services/upload-event/upload-event.service.mock';
 import {UploadEventService} from '../../services/upload-event/upload-event.service';
 import {UploadEventComponent} from './upload-event.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ReactiveFormsModule} from '@angular/forms';
+import {dispatchEvent} from '@angular/platform-browser/testing/src/browser_util';
 
 describe('UploadEventComponent', () => {
   let comp: UploadEventComponent;
   let fixture: ComponentFixture<UploadEventComponent>;
-  let eventService: UploadEventService;
+  let spy: any;
 
   const mockData = {
     assetID: 'someID',
@@ -34,7 +35,6 @@ describe('UploadEventComponent', () => {
     fixture = TestBed.createComponent(UploadEventComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
-    eventService = TestBed.get(UploadEventService);
   });
 
   describe('Form Validation Tests', () => {
@@ -85,4 +85,128 @@ describe('UploadEventComponent', () => {
       expect(randomEventTime).toBeGreaterThan(date.getTime());
     });
   });
+
+  describe('randomEventRange', () => {
+    it('should return a value between a min and max', () => {
+      const min = 5;
+      const max = 10;
+      const randomEventRange = comp.randomEventRange(min, max);
+      expect(randomEventRange).toBeGreaterThanOrEqual(min);
+      expect(randomEventRange).toBeLessThanOrEqual(max);
+    });
+
+    it('should return a value between a min and max', () => {
+      const value = 5;
+      const randomEventRange = comp.randomEventRange(value, value);
+      expect(randomEventRange).toBe(5);
+    });
+  });
+
+  describe('OnSubmit', () => {
+    fit('should post between 50 and 100 events on submit',
+      inject([UploadEventService], (eventService: MockUploadEventService) => {
+        spy = spyOn(eventService, 'postEvent');
+        fillInFormWithDummyData();
+        submitForm();
+        expect(eventService.postEvent).toHaveBeenCalledTimes(1);
+      }))
+  });
+
+  function setStartDate(date) {
+    setElementValueByID('#START_DATE', date);
+  }
+
+  describe('form validation', () => {
+
+    describe('start and end date validation', () => {
+      it('validation error should show if start date is after end date', () => {
+        setStartDate("2017-01-02");
+        setElementValueByID('#END_DATE', "2017-01-01");
+        expectErrorToShow();
+      });
+
+      it('validation error should not show if start date is before end date', () => {
+        setElementValueByID('#START_DATE', "2017-01-01");
+        setElementValueByID('#END_DATE', "2017-01-02");
+        expectErrorNotToShow();
+      });
+
+      it('validation error should not show if start date is the same as the end date', () => {
+        setElementValueByID('#START_DATE', "2017-01-01");
+        setElementValueByID('#END_DATE', "2017-01-01");
+        expectErrorNotToShow();
+      });
+    });
+
+    describe('min and max events per day cross form validation', () => {
+
+      it('no validation error if the min is less than max and both entires are valid', () => {
+        setElementValueByID('#MIN_EVENTS_PER_DAY', 0);
+        setElementValueByID('#MAX_EVENTS_PER_DAY', 1);
+        expectErrorNotToShow();
+      });
+      it('no validation error if the min is the same as the max', () => {
+        setElementValueByID('#MIN_EVENTS_PER_DAY', 2);
+        setElementValueByID('#MAX_EVENTS_PER_DAY', 2);
+        expectErrorNotToShow();
+      });
+      it('no validation error if the min is zero and the max is 200', () => {
+        setElementValueByID('#MIN_EVENTS_PER_DAY', 0);
+        setElementValueByID('#MAX_EVENTS_PER_DAY', 200);
+        expectErrorNotToShow();
+      });
+      it('validation error if the min is greater than max', () => {
+        setElementValueByID('#MIN_EVENTS_PER_DAY', 2);
+        setElementValueByID('#MAX_EVENTS_PER_DAY', 1);
+        expectErrorToShow();
+      });
+      it('validation error if the min is less than zero', () => {
+        setElementValueByID('#MIN_EVENTS_PER_DAY', -1);
+        expectErrorToShow();
+      });
+      it('validation error if the max is greater than 200', () => {
+        setElementValueByID('#MAX_EVENTS_PER_DAY', 201);
+        expectErrorToShow();
+      });
+
+    });
+
+  });
+
+
+  function fillInFormWithDummyData() {
+    setElementValueByID("#USER_ID", "some_user_id");
+    setElementValueByID('#USER_NAME', "some_user_name");
+    setElementValueByID('#GROUP', 'some_group');
+    setElementValueByID('#ASSET_ID', 123);
+    setElementValueByID('#ASSET_TITLE', 'some_title');
+    setElementValueByID('#START_DATE', "2017-01-01");
+    setElementValueByID('#END_DATE', "2017-01-02");
+    setElementValueByID('#MIN_EVENTS_PER_DAY', 1);
+    setElementValueByID('#MAX_EVENTS_PER_DAY', 2);
+  }
+
+  function setElementValueByID(elementID: string, value: any) {
+    const element = fixture.nativeElement.querySelector(elementID);
+    element.value = value;
+    element.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+  }
+
+
+  function submitForm() {
+    const button = fixture.nativeElement.querySelector('#GENERATE_BUTTON');
+    button.click();
+  }
+
+  function expectErrorToShow() {
+    const error = fixture.nativeElement.querySelector('p.alert');
+    expect(error).not.toBeNull();
+  }
+
+  function expectErrorNotToShow() {
+    const error = fixture.nativeElement.querySelector('p.alert');
+    expect(error).toBeNull();
+  }
+
 });
