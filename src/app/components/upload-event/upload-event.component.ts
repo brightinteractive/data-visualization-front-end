@@ -41,6 +41,7 @@ export class UploadEventComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("1");
     const startDate = new Date(this.eventForm.get('startDate').value);
     const endDate = new Date(this.eventForm.get('endDate').value);
     const differenceInDays = this.calculateDifferenceInDays(startDate, endDate) + 1;
@@ -49,6 +50,7 @@ export class UploadEventComponent implements OnInit {
       for (let events = 0; events < this.noOfUploads; events++) {
         const eventDate = this.calculateRandomEventTime(startDate, days);
         const eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
+        console.log("2");
         this.uploadEventService.postEvent(eventToUpload);
       }
     }
