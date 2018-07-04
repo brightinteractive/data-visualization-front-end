@@ -105,8 +105,6 @@ describe('UploadEventComponent', () => {
     });
   });
 
-
-  //HELPER FUNCTIONS
   function getUploadEventElement() {
     return fixture.nativeElement;
   }
@@ -114,7 +112,6 @@ describe('UploadEventComponent', () => {
   function expectErrorToShow() {
     const error = getUploadEventElement().querySelector('p.alert');
     console.log(error);
-    // expect(error).not.toBeNull();
   }
 
   function expectErrorNotToShow() {

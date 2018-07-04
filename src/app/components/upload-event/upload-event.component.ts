@@ -48,7 +48,7 @@ export class UploadEventComponent implements OnInit {
     for (let days = 0; days < differenceInDays; days++) {
       for (let events = 0; events < this.noOfUploads; events++) {
         const eventDate = this.calculateRandomEventTime(startDate, days);
-        let eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
+        const eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
         this.uploadEventService.postEvent(eventToUpload);
       }
     }
