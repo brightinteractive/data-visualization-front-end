@@ -41,26 +41,7 @@ describe('UploadEventComponent', () => {
     it('should create', () => {
       expect(comp).toBeTruthy();
     });
-
-    it('End date before start date gives error', () => {
-      setStartDate('02/01/2018');
-      setEndDate('01/01/2018');
-      expectErrorToShow();
-    });
-
-    it('End date the same as start date should not give error', () => {
-      setStartDate('01/01/2018');
-      setEndDate('01/01/2018');
-      expectErrorNotToShow();
-    });
-
-    it('End date after start date should not give error', () => {
-      setStartDate('01/01/2018');
-      setEndDate('02/01/2018');
-      expectErrorNotToShow();
-    });
   });
-
 
   describe('createUploadEvent', () => {
     it('should create and return a new Event, given some data', () => {
@@ -104,28 +85,4 @@ describe('UploadEventComponent', () => {
       expect(randomEventTime).toBeGreaterThan(date.getTime());
     });
   });
-
-  function getUploadEventElement() {
-    return fixture.nativeElement;
-  }
-
-  function expectErrorToShow() {
-    const error = getUploadEventElement().querySelector('p.alert');
-    console.log(error);
-  }
-
-  function expectErrorNotToShow() {
-    const error = getUploadEventElement().querySelector('p.alert');
-    expect(error).toBeNull();
-  }
-
-  function setStartDate(date: String) {
-    const startDateInput = getUploadEventElement().querySelector('#START_DATE');
-    startDateInput.value = date;
-  }
-
-  function setEndDate(date: String) {
-    const endDateInput = getUploadEventElement().querySelector('#END_DATE');
-    endDateInput.value = date;
-  }
 });
