@@ -45,7 +45,7 @@ describe('UploadEventComponent', () => {
     it('should create and return a new Event, given some data', () => {
       const testDate = new Date();
       const event = comp.createUploadEvent(mockData, testDate);
-      expect(event).toBeTruthy();
+      expect(event).toBeFalsy();
     });
   });
 
