@@ -6,5 +6,6 @@ nodejs:
 hooks:
   package_setup: npm install
 tests:
- - ng test
- - ng lint
+ - npm run lint
+ - npm test
+
