@@ -1,4 +1,10 @@
 # config/solano.yml
 ---
+
+nodejs:
+  version: '8.11.1'
+hooks:
+  pre_setup: npm install
 tests:
  - 'ng test'
+ - 'ng lint'
