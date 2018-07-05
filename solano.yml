@@ -1,0 +1,4 @@
+# config/solano.yml
+---
+tests:
+ - 'ng test'

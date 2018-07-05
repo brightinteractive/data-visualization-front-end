@@ -48,11 +48,9 @@ export class UploadEventComponent implements OnInit {
     const endDate = new Date(this.eventForm.get('endDate').value);
     const differenceInDays = this.calculateDifferenceInDays(startDate, endDate) + 1;
 
-    console.log('outer')
-
     for (let days = 0; days < differenceInDays; days++) {
 
-      let noOfEvents = this.randomEventRange(this.eventForm.get('minEvents').value, this.eventForm.get('maxEvents').value);
+      const noOfEvents = this.randomEventRange(this.eventForm.get('minEvents').value, this.eventForm.get('maxEvents').value);
 
       for (let events = 0; events < noOfEvents; events++) {
         const eventDate = this.calculateRandomEventTime(startDate, days);

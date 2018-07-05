@@ -1,15 +1,13 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MockUploadEventService} from '../../services/upload-event/upload-event.service.mock';
 import {UploadEventService} from '../../services/upload-event/upload-event.service';
 import {UploadEventComponent} from './upload-event.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ReactiveFormsModule} from '@angular/forms';
-import {dispatchEvent} from '@angular/platform-browser/testing/src/browser_util';
 
 describe('UploadEventComponent', () => {
   let comp: UploadEventComponent;
   let fixture: ComponentFixture<UploadEventComponent>;
-  let spy: any;
 
   const mockData = {
     assetID: 'someID',
@@ -102,16 +100,6 @@ describe('UploadEventComponent', () => {
     });
   });
 
-  describe('OnSubmit', () => {
-    fit('should post between 50 and 100 events on submit',
-      inject([UploadEventService], (eventService: MockUploadEventService) => {
-        spy = spyOn(eventService, 'postEvent');
-        fillInFormWithDummyData();
-        submitForm();
-        expect(eventService.postEvent).toHaveBeenCalledTimes(1);
-      }))
-  });
-
   function setStartDate(date) {
     setElementValueByID('#START_DATE', date);
   }
@@ -120,20 +108,20 @@ describe('UploadEventComponent', () => {
 
     describe('start and end date validation', () => {
       it('validation error should show if start date is after end date', () => {
-        setStartDate("2017-01-02");
-        setElementValueByID('#END_DATE', "2017-01-01");
+        setStartDate('2017-01-02');
+        setElementValueByID('#END_DATE', '2017-01-01');
         expectErrorToShow();
       });
 
       it('validation error should not show if start date is before end date', () => {
-        setElementValueByID('#START_DATE', "2017-01-01");
-        setElementValueByID('#END_DATE', "2017-01-02");
+        setElementValueByID('#START_DATE', '2017-01-01');
+        setElementValueByID('#END_DATE', '2017-01-02');
         expectErrorNotToShow();
       });
 
       it('validation error should not show if start date is the same as the end date', () => {
-        setElementValueByID('#START_DATE', "2017-01-01");
-        setElementValueByID('#END_DATE', "2017-01-01");
+        setElementValueByID('#START_DATE', '2017-01-01');
+        setElementValueByID('#END_DATE', '2017-01-01');
         expectErrorNotToShow();
       });
     });
@@ -173,18 +161,6 @@ describe('UploadEventComponent', () => {
 
   });
 
-
-  function fillInFormWithDummyData() {
-    setElementValueByID("#USER_ID", "some_user_id");
-    setElementValueByID('#USER_NAME', "some_user_name");
-    setElementValueByID('#GROUP', 'some_group');
-    setElementValueByID('#ASSET_ID', 123);
-    setElementValueByID('#ASSET_TITLE', 'some_title');
-    setElementValueByID('#START_DATE', "2017-01-01");
-    setElementValueByID('#END_DATE', "2017-01-02");
-    setElementValueByID('#MIN_EVENTS_PER_DAY', 1);
-    setElementValueByID('#MAX_EVENTS_PER_DAY', 2);
-  }
 
   function setElementValueByID(elementID: string, value: any) {
     const element = fixture.nativeElement.querySelector(elementID);

@@ -10,7 +10,6 @@ export class MockUploadEventService {
   constructor(private http: HttpClient) { }
 
   postEvent(event) {
-    console.log('posted')
     return [];
   }
 
