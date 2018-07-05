@@ -12,4 +12,16 @@ export class CustomValidators {
             return null;
         };
     }
+
+    static numberLessThan(field1: string, field2: string, validatorField: { [key: string]: boolean }): ValidatorFn {
+          return (c: AbstractControl): { [key: string]: boolean } | null => {
+                const n1 = c.get(field1).value;
+                const n2 = c.get(field2).value;
+
+                  if ((n1 !== null && n2 !== null) && n1 > n2) {
+                      return validatorField;
+                  }
+                return null;
+            };
+      }
 }
