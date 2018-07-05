@@ -2,7 +2,7 @@
 ---
 
 nodejs:
-  version: '8.11.1'
+  version: '9.8.0'
 hooks:
   package_setup: npm install
 tests:
