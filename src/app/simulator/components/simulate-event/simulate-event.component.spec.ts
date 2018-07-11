@@ -1,13 +1,13 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {MockUploadEventService} from '../../services/upload-event/upload-event.service.mock';
-import {UploadEventService} from '../../services/upload-event/upload-event.service';
-import {UploadEventComponent} from './upload-event.component';
+import {MockSimulateEventService} from '../../services/simulate-event/simulate-event.service.mock';
+import {SimulateEventService} from '../../services/simulate-event/simulate-event.service';
+import {SimulateEventComponent} from './simulate-event.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ReactiveFormsModule} from '@angular/forms';
 
-describe('UploadEventComponent', () => {
-  let comp: UploadEventComponent;
-  let fixture: ComponentFixture<UploadEventComponent>;
+describe('SimulateEventComponent', () => {
+  let comp: SimulateEventComponent;
+  let fixture: ComponentFixture<SimulateEventComponent>;
 
   const mockData = {
     assetID: 'someID',
@@ -22,15 +22,15 @@ describe('UploadEventComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, HttpClientTestingModule],
-      declarations: [UploadEventComponent],
+      declarations: [SimulateEventComponent],
       providers: [
-        {provide: UploadEventService, useClass: MockUploadEventService}
+        {provide: SimulateEventService, useClass: MockSimulateEventService}
       ]
     });
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UploadEventComponent);
+    fixture = TestBed.createComponent(SimulateEventComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -41,10 +41,10 @@ describe('UploadEventComponent', () => {
     });
   });
 
-  describe('createUploadEvent', () => {
+  describe('createSimulateEvent', () => {
     it('should create and return a new Event, given some data', () => {
       const testDate = new Date();
-      const event = comp.createUploadEvent(mockData, testDate);
+      const event = comp.createSimulateEvent(mockData, testDate);
       expect(event).toBeTruthy();
     });
   });

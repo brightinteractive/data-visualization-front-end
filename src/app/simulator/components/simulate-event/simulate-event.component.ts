@@ -1,23 +1,23 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {UploadEventService} from '../../services/upload-event/upload-event.service';
+import {SimulateEventService} from '../../services/simulate-event/simulate-event.service';
 import {Event} from '../../models/event';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../services/validators/customValidators';
 
 @Component({
-  selector: 'app-upload-event',
-  templateUrl: './upload-event.component.html',
-  styleUrls: ['./upload-event.component.css']
+  selector: 'app-simulate-event',
+  templateUrl: './simulate-event.component.html',
+  styleUrls: ['./simulate-event.component.css']
 })
-export class UploadEventComponent implements OnInit {
+export class SimulateEventComponent implements OnInit {
 
   eventForm: FormGroup;
-  noOfUploadsRange: number;
+  simulateEventsRange: number;
 
 
   @ViewChild('userIdInput') userIdInput: ElementRef;
 
-  constructor(private uploadEventService: UploadEventService, private fb: FormBuilder) {
+  constructor(private simulateEventService: SimulateEventService, private fb: FormBuilder) {
     this.createForm();
   }
 
@@ -54,9 +54,9 @@ export class UploadEventComponent implements OnInit {
 
       for (let events = 0; events < noOfEvents; events++) {
         const eventDate = this.calculateRandomEventTime(startDate, days);
-        const eventToUpload = this.createUploadEvent(this.eventForm.value, eventDate);
+        const eventToSimulate = this.createSimulateEvent(this.eventForm.value, eventDate);
 
-        this.uploadEventService.postEvent(eventToUpload).subscribe();
+        this.simulateEventService.postEvent(eventToSimulate).subscribe();
       }
 
     }
@@ -73,7 +73,7 @@ export class UploadEventComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  createUploadEvent(eventData, eventDate): Event {
+  createSimulateEvent(eventData, eventDate): Event {
     const event = new Event();
     event.eventType = 'Upload';
     event.userId = eventData.userId;

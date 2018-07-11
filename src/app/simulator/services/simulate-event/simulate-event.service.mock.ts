@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import {AppSettings} from '../../models/app-settings';
 
 @Injectable()
-export class MockUploadEventService {
+export class MockSimulateEventService {
 
-  eventToUpload: Event;
+  eventToSimulate: Event;
 
   constructor(private http: HttpClient) { }
 
