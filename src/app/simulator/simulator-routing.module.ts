@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {SimulateEventComponent} from "./components/simulate-event/simulate-event.component";
+import {SimulateEventComponent} from './components/simulate-event/simulate-event.component';
 
 const routes: Routes = [
   {
-    path:'',
+    path: '',
     component: SimulateEventComponent
   }
 ];

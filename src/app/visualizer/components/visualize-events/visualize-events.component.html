@@ -1,3 +1,39 @@
-<p>
-  visualize-events works!
-</p>
+<div class="container">
+
+  <h1>Data Visualization</h1>
+
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label class="center-block">Start Date:
+        <input class="form-control" formControlName="startDate" type="date" required id="START_DATE">
+      </label>
+    </div>
+    <div>
+      <p *ngIf="shouldShowFieldValidationMessage('startDate')" class="alert alert-danger">Must be a valid date</p>
+    </div>
+
+    <div class="form-group">
+      <label class="center-block">End Date:
+        <input class="form-control" formControlName="endDate" type="date" required id="END_DATE">
+      </label>
+    </div>
+    <div>
+      <p *ngIf="shouldShowFieldValidationMessage('endDate')" class="alert alert-danger">Must be a valid date</p>
+      <p *ngIf="eventForm.hasError('endDateIsBeforeStartDate')" class="alert alert-danger"> End date must be after start date</p>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="!eventForm.valid" id="GENERATE_BUTTON">
+      View Events
+    </button>
+
+  </form>
+
+  <ul class = "list-group">
+    <li *ngFor="let event of events" class="list-group-item">
+      {{ event | json }}
+    </li>
+  </ul>
+
+
+</div>
