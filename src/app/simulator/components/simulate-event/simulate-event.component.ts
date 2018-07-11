@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {SimulateEventService} from '../../services/simulate-event/simulate-event.service';
-import {Event} from '../../models/event';
+import {Event} from '../../../shared/models/event';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../services/validators/customValidators';
 

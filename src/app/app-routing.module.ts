@@ -2,17 +2,19 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
+
+
   {
     path: 'simulator',
-    loadChildren: 'app/simulator/simulator.module#SimulatorRoutingModule'
+    loadChildren: './simulator/simulator.module#SimulatorModule'
   },
   {
     path: 'visualizer',
-    loadChildren: 'app/visualizer/visualizer.module#VisualizerRoutingModule'
+    loadChildren: './visualizer/visualizer.module#VisualizerModule'
   },
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'simulator',
     pathMatch: 'full'
   }
 

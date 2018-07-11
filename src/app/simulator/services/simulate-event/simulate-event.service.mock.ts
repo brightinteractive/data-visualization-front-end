@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {AppSettings} from '../../models/app-settings';
+import {AppSettings} from '../../../shared/app-settings/app-settings';
 
 @Injectable()
 export class MockSimulateEventService {
