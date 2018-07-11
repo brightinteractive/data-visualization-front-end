@@ -8,6 +8,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { UploadEventComponent } from './components/upload-event/upload-event.component';
 import { UploadEventService } from './services/upload-event/upload-event.service';
+import {VisualizerModule} from "./visualizer/visualizer.module";
+import {SimulatorModule} from "./simulator/simulator.module";
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { UploadEventService } from './services/upload-event/upload-event.service
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    VisualizerModule,
+    SimulatorModule
   ],
   providers: [UploadEventService],
   bootstrap: [AppComponent]
