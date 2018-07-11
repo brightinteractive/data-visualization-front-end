@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {VisualizeEventsComponent} from "./visualize-events/visualize-events.component";
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: VisualizeEventsComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

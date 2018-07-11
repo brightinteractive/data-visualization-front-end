@@ -4,6 +4,7 @@ import {SimulateEventComponent} from "./components/simulate-event/simulate-event
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {SimulateEventService} from "./services/simulate-event/simulate-event.service";
+import {SimulatorRoutingModule} from "./simulator-routing.module";
 
 @NgModule({
   imports: [
@@ -11,9 +12,9 @@ import {SimulateEventService} from "./services/simulate-event/simulate-event.ser
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    SimulatorRoutingModule
   ],
   declarations: [SimulateEventComponent],
-  exports: [SimulateEventComponent],
   providers: [SimulateEventService]
 })
 export class SimulatorModule { }
