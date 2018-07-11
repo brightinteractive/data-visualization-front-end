@@ -4,21 +4,13 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static( __dirname + '/dist'));
+// Serve only the static files form the dist directory
+app.use(express.static('./dist/data-visualization'));
 
-// app.get('/*', function(req,res) {
-//
-// res.sendFile(path.join(__dirname,'/dist/your_app_name/index.html'));
-// });
+app.get('/*', function(req,res) {
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/dist/index.html');
-});
-app.get('/visualizer', function(req, res){
-  res.sendFile(__dirname + '/dist/index.html');
-});
-app.get('/simulator', function(req, res){
-  res.sendFile(__dirname + '/dist/index.html');
+res.sendFile(path.join(__dirname,'/index.html'));
 });
 
+// Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
