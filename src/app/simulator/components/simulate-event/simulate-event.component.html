@@ -1,5 +1,7 @@
 <div class="container">
 
+    <h1>Event Data Generator</h1>
+
     <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label class="center-block">User ID:
@@ -62,7 +64,7 @@
         </div>
         <div>
             <p *ngIf="shouldShowFieldValidationMessage('endDate')" class="alert alert-danger">Must be a valid date</p>
-            <p *ngIf="eventForm.hasError('endDateIsBeforeStartDate')" class="alert alert-danger"> End date must be before start date</p>
+            <p *ngIf="eventForm.hasError('endDateIsBeforeStartDate')" class="alert alert-danger"> End date must be after start date</p>
         </div>
 
         <div class="form-group">

@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { UploadEventService } from './upload-event.service';
+import { SimulateEventService } from './simulate-event.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-describe('UploadEventService', () => {
+describe('SimulateEventService', () => {
 
   let service;
   let httpTestingController: HttpTestingController;
@@ -13,9 +13,9 @@ describe('UploadEventService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
-      providers: [UploadEventService]
+      providers: [SimulateEventService]
     });
-    service = TestBed.get(UploadEventService);
+    service = TestBed.get(SimulateEventService);
     httpTestingController = TestBed.get(HttpTestingController);
     this.mockEvent = mockData;
   });
