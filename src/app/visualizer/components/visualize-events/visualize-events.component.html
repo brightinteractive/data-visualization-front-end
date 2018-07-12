@@ -20,7 +20,8 @@
     </div>
     <div>
       <p *ngIf="shouldShowFieldValidationMessage('endDate')" class="alert alert-danger">Must be a valid date</p>
-      <p *ngIf="eventForm.hasError('endDateIsBeforeStartDate')" class="alert alert-danger"> End date must be after start date</p>
+      <p *ngIf="eventForm.hasError('endDateIsBeforeStartDate')" class="alert alert-danger"> End date must be after start
+        date</p>
     </div>
 
     <button type="submit" class="btn btn-success" [disabled]="!eventForm.valid" id="GENERATE_BUTTON">
@@ -29,7 +30,9 @@
 
   </form>
 
-  <canvas id="myChart"></canvas>
 
+  <div *ngIf="chart">
+    <canvas id="canvas">{{ chart }}</canvas>
+  </div>
 
 </div>
