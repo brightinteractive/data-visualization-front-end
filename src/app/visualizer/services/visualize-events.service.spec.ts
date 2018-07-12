@@ -17,7 +17,7 @@ describe('VisualizeEventsService', () => {
     httpTestingController = TestBed.get(HttpTestingController);
   });
 
-  it('should be created', inject([VisualizeEventsService], (service: VisualizeEventsService) => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 });
