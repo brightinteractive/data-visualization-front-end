@@ -44,7 +44,7 @@ export class VisualizeEventsComponent implements OnInit {
     this.callEventService(startDate, endDate)
       .then((events) => {
         this.events = events;
-        this.generateChartData(startDate, endDate);
+        this.generateChart(startDate, endDate);
       });
 
   }
@@ -56,7 +56,7 @@ export class VisualizeEventsComponent implements OnInit {
   }
 
 
-  private generateChartData(startDate, endDate) {
+  private generateChart(startDate, endDate) {
     const numberOfDays = this.calculateDifferenceInDays(startDate, endDate);
     const labels = this.calculateGraphLabels(numberOfDays, startDate);
     const data = this.calculateGraphData(numberOfDays, startDate);
