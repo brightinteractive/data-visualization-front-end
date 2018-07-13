@@ -93,7 +93,6 @@ export class VisualizeEventsComponent implements OnInit {
 
   private plotGraph(data, labels) {
 
-    // if(this.chart) this.chart.destroy();
     this.chart = new Chart(this.canvas.nativeElement.getContext('2d'), {
       type: 'bar',
       data: {
