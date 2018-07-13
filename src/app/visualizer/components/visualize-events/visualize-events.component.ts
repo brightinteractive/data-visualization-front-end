@@ -44,7 +44,7 @@ export class VisualizeEventsComponent implements OnInit {
     this.callEventService(startDate, endDate)
       .then((events) => {
         this.events = events;
-        this.generateChartData(startDate, endDate)
+        this.generateChartData(startDate, endDate);
       });
 
   }
@@ -52,7 +52,7 @@ export class VisualizeEventsComponent implements OnInit {
   callEventService(startDate, endDate) {
     return this.visualizeEventService.getEventsBetweenDateRange(startDate.getTime(), endDate.getTime())
       .pipe(take(1))
-      .toPromise()
+      .toPromise();
   }
 
 
@@ -64,9 +64,9 @@ export class VisualizeEventsComponent implements OnInit {
   }
 
   private calculateGraphData(length, startDate): number[] {
-    let eventCount = Array.apply(null, Array(length)).map(Number.prototype.valueOf, 0);
-    for (let i in this.events) {
-      let indexToIncrement = this.calculateIndexToIncrement(startDate, this.events[i]);
+    const eventCount = Array.apply(null, Array(length)).map(Number.prototype.valueOf, 0);
+    for (const event of this.events) {
+      const indexToIncrement = this.calculateIndexToIncrement(startDate, event);
       eventCount[indexToIncrement]++;
     }
     return eventCount;
@@ -84,7 +84,7 @@ export class VisualizeEventsComponent implements OnInit {
   }
 
   private calculateGraphLabels(numberOfDays, startDate) {
-    var dateArray = new Array();
+    const dateArray = new Array();
     for (let i = 0; i < numberOfDays; i++) {
       dateArray.push(newDate(startDate, i));
     }
@@ -99,7 +99,7 @@ export class VisualizeEventsComponent implements OnInit {
       data: {
         labels: labels,
         datasets: [{
-          label: "Events",
+          label: 'Events',
           data: data,
           backgroundColor: 'rgb(110, 200, 210)',
           hoverBackgroundColor: 'rgb(42, 176, 190)'
@@ -108,7 +108,7 @@ export class VisualizeEventsComponent implements OnInit {
       options: {
         scales: {
           xAxes: [{
-            type: "time",
+            type: 'time',
             time: {
               unit: 'day',
               round: 'day',
