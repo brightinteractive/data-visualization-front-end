@@ -63,8 +63,8 @@ export class VisualizeEventsComponent implements OnInit {
       this.graphLabels(numberOfCategoriesOnChart, startDate));
   }
 
-  private graphData(length, startDate): number[] {
-    const categoryValues = this.initialiseToZeros(length);
+  private graphData(numberOfDays, startDate): number[] {
+    const categoryValues = this.initialiseToZeros(numberOfDays);
     for (const event of this.events) {
       categoryValues[this.categoryIndexForDate(startDate, event)]++;
     }
