@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {VisualizeEventsService} from '../../services/visualize-events.service';
 import {take} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -13,7 +13,9 @@ import * as moment from 'moment';
 })
 export class VisualizeEventsComponent implements OnInit {
 
-  events: Event[];
+  @ViewChild('canvas') canvas: ElementRef;
+
+  events: Event[] = [];
   eventForm: FormGroup;
   chart = [];
 
@@ -39,27 +41,32 @@ export class VisualizeEventsComponent implements OnInit {
     const startDate = new Date(this.eventForm.get('startDate').value);
     const endDate = new Date(this.eventForm.get('endDate').value);
     endDate.setDate(endDate.getDate() + 1);
-    this.visualizeEventService.getEventsBetweenDateRange(startDate.getTime(), endDate.getTime())
+    this.callEventService(startDate, endDate)
+      .then((events) => {
+        this.events = events;
+        this.generateChartData(startDate, endDate)
+      });
+
+  }
+
+  callEventService(startDate, endDate) {
+    return this.visualizeEventService.getEventsBetweenDateRange(startDate.getTime(), endDate.getTime())
       .pipe(take(1))
-      .subscribe(value => this.events = value);
-    this.generateChart(startDate, endDate);
+      .toPromise()
   }
 
 
-  private generateChart(startDate, endDate) {
-    // const labels = this.calculateXAxis(startDate, endDate);
-    // const data = this.calculateYAxis(labels.length, startDate);
-
-    const labels = [moment(), moment().add(1), moment().add(2)];
-    const data = [1, 2, 3];
-
+  private generateChartData(startDate, endDate) {
+    const numberOfDays = this.calculateDifferenceInDays(startDate, endDate);
+    const labels = this.calculateGraphLabels(numberOfDays, startDate);
+    const data = this.calculateGraphData(numberOfDays, startDate);
     this.plotGraph(data, labels);
   }
 
-  private calculateYAxis(length, startDate): number[] {
+  private calculateGraphData(length, startDate): number[] {
     let eventCount = Array.apply(null, Array(length)).map(Number.prototype.valueOf, 0);
-    for (let event in this.events) {
-      let indexToIncrement = this.calculateIndexToIncrement(startDate, event);
+    for (let i in this.events) {
+      let indexToIncrement = this.calculateIndexToIncrement(startDate, this.events[i]);
       eventCount[indexToIncrement]++;
     }
     return eventCount;
@@ -68,34 +75,33 @@ export class VisualizeEventsComponent implements OnInit {
   private calculateIndexToIncrement(startdate: any, event: any) {
     const startDate = new Date(startdate);
     const endDate = new Date(event.date);
-    return this.calculateDifferenceInDays(startDate, endDate) + 1;
+    return this.calculateDifferenceInDays(startDate, endDate) - 1;
   }
 
-  calculateDifferenceInDays(d1: Date, d2: Date): number {
+  private calculateDifferenceInDays(d1: Date, d2: Date): number {
     const timeDiff = Math.abs(d2.getTime() - d1.getTime());
     return Math.ceil(timeDiff / (1000 * 3600 * 24));
   }
 
-  private calculateXAxis(startDate, endDate) {
+  private calculateGraphLabels(numberOfDays, startDate) {
     var dateArray = new Array();
-    var currentDate = startDate;
-    while (currentDate < endDate) {
-      dateArray.push(new Date(currentDate).toLocaleString("en-GB"));
-      currentDate.setDate(currentDate.getDate() + 1);
+    for (let i = 0; i < numberOfDays; i++) {
+      dateArray.push(newDate(startDate, i));
     }
     return dateArray;
   }
 
   private plotGraph(data, labels) {
 
-    this.chart = new Chart('canvas', {
+    // if(this.chart) this.chart.destroy();
+    this.chart = new Chart(this.canvas.nativeElement.getContext('2d'), {
       type: 'bar',
       data: {
-        labels: [newDate(-5), newDate(-4), newDate(-3), newDate(-2), newDate(-1), newDate(0)],
+        labels: labels,
         datasets: [{
-          label: "Event",
-          data: [2, 5, 3, 4, 7, 3],
-          backgroundColor: 'rgb(184, 226, 230)',
+          label: "Events",
+          data: data,
+          backgroundColor: 'rgb(110, 200, 210)',
           hoverBackgroundColor: 'rgb(42, 176, 190)'
         }]
       },
@@ -129,7 +135,7 @@ export class VisualizeEventsComponent implements OnInit {
 
 }
 
-function newDate(days) {
-  return moment().add(days, 'd').toDate();
+function newDate(date, days) {
+  return moment(date).add(days, 'd').toDate();
 }
 
