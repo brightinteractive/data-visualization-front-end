@@ -57,33 +57,36 @@ export class VisualizeEventsComponent implements OnInit {
 
 
   private generateChart(startDate, endDate) {
-    const numberOfDays = this.calculateDifferenceInDays(startDate, endDate);
-    const labels = this.calculateGraphLabels(numberOfDays, startDate);
-    const data = this.calculateGraphData(numberOfDays, startDate);
-    this.plotGraph(data, labels);
+    const numberCategoriesOnChart = this.differenceInDays(startDate, endDate);
+    this.plotGraph(
+      this.graphData(numberCategoriesOnChart, startDate),
+      this.graphLabels(numberCategoriesOnChart, startDate));
   }
 
-  private calculateGraphData(length, startDate): number[] {
-    const eventCount = Array.apply(null, Array(length)).map(Number.prototype.valueOf, 0);
+  private graphData(length, startDate): number[] {
+    const categoryValues = this.initialiseToZeros(length);
     for (const event of this.events) {
-      const indexToIncrement = this.calculateIndexToIncrement(startDate, event);
-      eventCount[indexToIncrement]++;
+      categoryValues[this.categoryIndexForDate(startDate, event)]++;
     }
-    return eventCount;
+    return categoryValues;
   }
 
-  private calculateIndexToIncrement(startdate: any, event: any) {
+  private initialiseToZeros(length) {
+    return Array.apply(null, Array(length)).map(Number.prototype.valueOf, 0);
+  }
+
+  private categoryIndexForDate(startdate: any, event: any) {
     const startDate = new Date(startdate);
     const endDate = new Date(event.date);
-    return this.calculateDifferenceInDays(startDate, endDate) - 1;
+    return this.differenceInDays(startDate, endDate) - 1;
   }
 
-  private calculateDifferenceInDays(d1: Date, d2: Date): number {
+  private differenceInDays(d1: Date, d2: Date): number {
     const timeDiff = Math.abs(d2.getTime() - d1.getTime());
     return Math.ceil(timeDiff / (1000 * 3600 * 24));
   }
 
-  private calculateGraphLabels(numberOfDays, startDate) {
+  private graphLabels(numberOfDays, startDate) {
     const dateArray = new Array();
     for (let i = 0; i < numberOfDays; i++) {
       dateArray.push(newDate(startDate, i));
