@@ -57,10 +57,10 @@ export class VisualizeEventsComponent implements OnInit {
 
 
   private generateChart(startDate, endDate) {
-    const numberCategoriesOnChart = this.differenceInDays(startDate, endDate);
+    const numberOfCategoriesOnChart = this.differenceInDays(startDate, endDate);
     this.plotGraph(
-      this.graphData(numberCategoriesOnChart, startDate),
-      this.graphLabels(numberCategoriesOnChart, startDate));
+      this.graphData(numberOfCategoriesOnChart, startDate),
+      this.graphLabels(numberOfCategoriesOnChart, startDate));
   }
 
   private graphData(length, startDate): number[] {
